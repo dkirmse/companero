@@ -1,7 +1,7 @@
 var async = require("async");
 var Promise = require("bluebird");
-var ArgumentException = require("../../common/errors").ArgumentException
-var ConnectionException = require("../../common/errors").ConnectionException
+var ArgumentException = require("../../../common/errors").ArgumentException
+var ConnectionException = require("../../../common/errors").ConnectionException
 
 function JenkinsConnector(name, url) {
     if (!(this instanceof JenkinsConnector)) {
