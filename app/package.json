@@ -1,0 +1,12 @@
+{
+  "name": "BuenosDIaaSCompanero",
+  "description": "Buenos DIaaS Companero",
+  "version": "0.0.1",
+  "author": "DanielKirmse",
+  "main": "./main.js",
+  "dependencies": {
+    "jenkins-api": "0.2.8",
+    "jenkins": "0.19.0",
+    "jquery": "3.1.1"
+  }
+}

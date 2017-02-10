@@ -1,0 +1,47 @@
+{
+  "devDependencies": {
+    "electron": "^1.4.5",
+    "electron-builder": "7.14.2",
+    "mocha": "3.1.2",
+    "chai": "3.5.0",
+    "chai-as-promised": "6.0.0",
+    "sinon-chai": "2.8.0",
+    "sinon": "1.17.7",
+    "apimocker": "0.5.0",
+    "request-promise": "4.1.1",
+    "lodash": "4.17.4",
+    "diagnostics": "1.1.0"
+  },
+  "build": {
+    "appId": "com.sap.hanadi.explorer",
+    "mac": {
+      "category": "public.app-category.developer-tools"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "squirrel"
+      ],
+      "files": [
+        "*",
+        "src/**/*",
+        "resources/**/*"
+      ],
+      "iconUrl": "file://./build/BuenosDIaaSExplorer.ico"
+    },
+    "nsis": {}
+  },
+  "scripts": {
+    "start": "electron .",
+    "pack": "build -wl --x64 --dir",
+    "dist": "build -wl --x64",
+    "test": "./node_modules/.bin/easy-mocker easy-mocker -c app/tests/jenkins/adapter/fakeJenkins/config.json -d app/tests/jenkins/adapter/fakeJenkins && ./node_modules/.bin/mocha app/tests/**/*.js --reporter xunit > nodeTest.xml"
+  },
+  "postinstall": "install-app-deps",
+  "dependencies": {
+    "apimocker": "^0.5.0",
+    "diagnostics": "^1.1.0",
+    "easy-mocker": "^1.3.1",
+    "request-promise": "^4.1.1"
+  }
+}

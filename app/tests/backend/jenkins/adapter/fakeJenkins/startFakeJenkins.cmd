@@ -1,0 +1,1 @@
+start .\node_modules\.bin\apimocker -c app\tests\jenkins\adapter\fakeJenkins\config.json
