@@ -12,10 +12,10 @@ describe("ApiMocker Adapter", function () {
     beforeEach(function () {
         theFakeApi = new ApiMockerConnector(apiName, apiBaseUrl);
         theFakeApi.start().then(function (results) {
-                console.log("Mock Server: " + results)
+                //console.log("Mock Server: " + results)
             },
             function (error) {
-                console.log(error);
+                //console.log(error);
                 expect(error).to.be.undefined
             }
         );
@@ -24,7 +24,7 @@ describe("ApiMocker Adapter", function () {
 
     afterEach(function () {
         theFakeApi.stop().then(function (results) {
-                console.log(results);
+                //console.log(results);
             },
             function (error) {
                 expect(error).to.be.undefined
@@ -92,7 +92,7 @@ describe("ApiMocker Adapter", function () {
         }
         return theFakeApi.setMock(theMock)
             .then(function (results) {
-                    console.log(results);
+                    //console.log(results);
                 },
                 function (error) {
                     expect(error).to.be.undefined
@@ -137,7 +137,7 @@ describe("ApiMocker Adapter", function () {
                 expect(results).to.be.undefined
             },
             function (error) {
-                console.log(error)
+                //console.log(error)
                 expect(error).to.be.instanceOf(ConnectionException, /Invalid URI/)
             }
         )

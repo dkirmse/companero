@@ -28,9 +28,9 @@ function JenkinsConnector(name, url) {
         return new Promise(function (fulfill, reject) {
             theJenkins.info({depth: 2},
                 function (err, data) {
-                    console.log("------------------------------------------")
-                    console.log(data)
-                    console.log("------------------------------------------")
+                    //console.log("------------------------------------------")
+                    //console.log(data)
+                    //console.log("------------------------------------------")
                     if (err) {
                         if (err.code == 'ECONNREFUSED') {
                             reject(new ConnectionException("Could not connect to Jenkins '" + itsUrl + '"'))

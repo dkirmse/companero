@@ -34,7 +34,7 @@ describe("Jenkins Adapter", function () {
 
     afterEach(function () {
         theFakeApisConnector.stop().then(function (results) {
-                console.log(results);
+                //console.log(results);
             },
             function (error) {
                 fail(error)
@@ -43,7 +43,7 @@ describe("Jenkins Adapter", function () {
     })
 
     var fail = function (error) {
-        console.log(error);
+        //console.log(error);
         expect(error).to.be.undefined
     }
 
@@ -98,12 +98,12 @@ describe("Jenkins Adapter", function () {
     });
 
     it("should provide a list of jobs known to the jenkins", function () {
-        console.log("test body")
+        //console.log("test body")
         var jobList = [];
         theFakeApi.expect("jobs").returns(twoJobs).then(function (results, error) {
                 return theFakeJenkins.jobs().then(function (results) {
                 jobList = jobList.concat(results)
-                console.log(results);
+                //console.log(results);
                 expect(jobList).to.be.not.empty;
                     },
                     function (error) {
@@ -115,7 +115,7 @@ describe("Jenkins Adapter", function () {
                 fail(error)
             }
         )
-        console.log("test body")
+        //console.log("test body")
     });
 
     it("should provide empty list of jobs when getting invalid list of jobs", function () {
@@ -124,7 +124,7 @@ describe("Jenkins Adapter", function () {
             function (results) {
                 return theFakeJenkins.jobs().then(function (results) {
                         jobList = jobList.concat(results)
-                        console.log("Fake: " + results);
+                        //console.log("Fake: " + results);
                         expect(jobList).to.be.empty;
                     },
                     function (error) {
