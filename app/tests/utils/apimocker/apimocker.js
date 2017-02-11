@@ -24,7 +24,7 @@ function ApiMocker(connectorToApimocker, connectorToMock) {
                         verb: "get",
                         serviceUrl: itsConnectorToMock.findServiceUrlFor(functionName),
                         mockFile: JSON.parse(returnValue),
-                        latency: 10,
+                        latency: 0,
                         contentType: "anythingyouwant"
                     }
 

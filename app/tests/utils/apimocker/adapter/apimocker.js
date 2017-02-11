@@ -14,7 +14,7 @@ function ApiMockerConnector(name, url) {
 
     var options = {}
     var apiMocker = ApiMocker.createServer(options)
-        .setConfigFile('app/tests/utils/apimocker/adapter/config.json')
+        .setConfigFile('utils/apimocker/adapter/config.json')
 
     this.setMock = function (theMock) {
         return new Promise(function (fulfill, reject) {

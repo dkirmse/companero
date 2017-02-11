@@ -2,6 +2,8 @@ var JenkinsConnector = require("../../../../src/backend/jenkins/adapter/jenkins.
 var ApiMockerConnector = require("../../../utils/apimocker/adapter/apimocker.js");
 var ApiMocker = require("../../../utils/apimocker/apimocker.js");
 
+var process = require("process")
+
 var expect = require("chai").expect;
 var async = require("async");
 var Promise = require("bluebird");
@@ -10,18 +12,40 @@ var ConnectionException = require("../../../../src/common/errors").ConnectionExc
 
 
 describe("Jenkins Adapter", function () {
-    var jenkinsName = "cockpit prod 2";
-    var jenkinsUrl = "http://diaasjenkins-cockpit-prod.mo.sap.corp:8080";
-    var fakeJenkinsUrl = "http://localhost:8080";
+    var jenkinsName = "some jenkins";
+    var jenkinsUrl = process.env.TEST_JENKINS;
+    var fakeJenkinsUrl = process.env.FAKE_JENKINS;
     var theJenkins;
     var theFakeJenkins;
 
     beforeEach(function () {
         theJenkins = new JenkinsConnector(jenkinsName, jenkinsUrl);
         theFakeJenkins = new JenkinsConnector(jenkinsName, fakeJenkinsUrl);
+
         theFakeApisConnector = new ApiMockerConnector(jenkinsName, fakeJenkinsUrl);
+        theFakeApisConnector.start().then(function (results) {
+            },
+            function (error) {
+                fail(error)
+            }
+        );
         theFakeApi = new ApiMocker(theFakeApisConnector, theFakeJenkins);
     });
+
+    afterEach(function () {
+        theFakeApisConnector.stop().then(function (results) {
+                console.log(results);
+            },
+            function (error) {
+                fail(error)
+            }
+        );
+    })
+
+    var fail = function (error) {
+        console.log(error);
+        expect(error).to.be.undefined
+    }
 
     it("must throw when name not given", function () {
         var constructor = function () {
@@ -74,33 +98,41 @@ describe("Jenkins Adapter", function () {
     });
 
     it("should provide a list of jobs known to the jenkins", function () {
-        theFakeApi.expect("jobs").returns(twoJobs)
+        console.log("test body")
         var jobList = [];
-        return theFakeJenkins.jobs().then(function (results) {
+        theFakeApi.expect("jobs").returns(twoJobs).then(function (results, error) {
+                return theFakeJenkins.jobs().then(function (results) {
                 jobList = jobList.concat(results)
                 console.log(results);
                 expect(jobList).to.be.not.empty;
+                    },
+                    function (error) {
+                        fail(error)
+                    }
+                )
+            },
+            function (error) {
+                fail(error)
             }
-        );
-    });
-
-    it("should provide a list of pipeline job entities", function () {
-        var jobList = [];
-        return theFakeJenkins.jobs().then(function (results) {
-                jobList = jobList.concat(results)
-                console.log("Fake: " + results);
-                expect(jobList).to.be.not.empty;
-            }
-        );
+        )
+        console.log("test body")
     });
 
     it("should provide empty list of jobs when getting invalid list of jobs", function () {
         var jobList = [];
-        theFakeJenkins.expect("jobs").to.return(anInvaildJobList)
-        return theFakeJenkins.jobs().then(function (results) {
-                jobList = jobList.concat(results)
-                console.log("Fake: " + results);
-                expect(jobList).to.be.empty;
+        theFakeApi.expect("jobs").returns(anInvalidJobList).then(
+            function (results) {
+                return theFakeJenkins.jobs().then(function (results) {
+                        jobList = jobList.concat(results)
+                        console.log("Fake: " + results);
+                        expect(jobList).to.be.empty;
+                    },
+                    function (error) {
+                        fail(error)
+                    })
+            },
+            function (error) {
+                fail(error)
             }
         )
     });
@@ -131,6 +163,10 @@ var twoJobs =
     "[ { \"actions\": {}, \
     \"description\": \"\", \
     \"displayName\": \"Adhoc_Job_Deploy\"}]"
+
+var anInvalidJobList =
+    "[ { \"actions\": {}, \
+    \"description\": \"\", \]"
 /*, \
  displayNameOrNull: null, \
  name: '

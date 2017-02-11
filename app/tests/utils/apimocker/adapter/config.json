@@ -1,8 +1,8 @@
 {
   "note": "This is a sample config file. You should change the mockDirectory to a more reasonable path.",
-  "mockDirectory": "./app/tests/jenkins/adapter/fakeJenkins",
-  "staticDirectory": "./app/tests/jenkins/adapter/fakeJenkins",
-  "staticPath": "./app/tests/jenkins/adapter/fakeJenkins",
+  "mockDirectory": "./app/tests/backend/jenkins/adapter/fakeJenkins",
+  "staticDirectory": "./app/tests/backend/jenkins/adapter/fakeJenkins",
+  "staticPath": "./app/tests/backend/jenkins/adapter/fakeJenkins",
   "quiet": false,
   "port": "8080",
   "latency": 50,
@@ -15,12 +15,5 @@
     "my-custom-header"
   ],
   "webServices": {
-    "api/json": {
-      "mockFile": "info.json",
-      "latency": 20,
-      "verbs": [
-        "get"
-      ]
-    }
   }
 }

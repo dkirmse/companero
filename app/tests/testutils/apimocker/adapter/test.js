@@ -15,7 +15,7 @@ describe("ApiMocker Adapter", function () {
                 console.log("Mock Server: " + results)
             },
             function (error) {
-                console.log(erro);
+                console.log(error);
                 expect(error).to.be.undefined
             }
         );
@@ -23,13 +23,13 @@ describe("ApiMocker Adapter", function () {
     });
 
     afterEach(function () {
-        // theFakeApi.stop().then(function (results) {
-        //         console.log(results);
-        //     },
-        //     function (error) {
-        //         expect(error).to.be.undefined
-        //     }
-        // );
+        theFakeApi.stop().then(function (results) {
+                console.log(results);
+            },
+            function (error) {
+                expect(error).to.be.undefined
+            }
+        );
     })
 
     it("must throw when name not given", function () {
