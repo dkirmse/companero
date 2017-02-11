@@ -35,7 +35,7 @@
     "start": "electron .",
     "pack": "build -wl --x64 --dir",
     "dist": "build -wl --x64",
-    "test": "./node_modules/.bin/mocha app/tests/**/*.js --reporter xunit > nodeTest.xml"
+    "test": "./node_modules/.bin/mocha app/tests/**/*.js"
   },
   "postinstall": "install-app-deps",
   "dependencies": {
